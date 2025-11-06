@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jehyun Lee - Senior Security Researcher</title>
+    <style>
+        /* --- Basic Setup --- */
+        :root {
+            --primary-color: #003366; /* Dark Blue */
+            --secondary-color: #0055a4; /* Lighter Blue */
+            --light-gray: #f4f4f4;
+            --dark-gray: #333;
+            --text-color: #222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background: #fff;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+        
+        section:nth-child(even) {
+            background: var(--light-gray);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+             font-size: 1.5rem;
+             color: var(--secondary-color);
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 5px;
+        }
+        
+        li {
+             margin-bottom: 10px;
+        }
+
+        /* --- Navigation Bar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+
+        /* --- Header (Home) --- */
+        #home {
+            background: var(--light-gray);
+            height: 100vh;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #home .container {
+            padding-top: 60px; /* Offset for nav */
+        }
+
+        #home h1 {
+            color: var(--dark-gray);
+        }
+        
+        #home .subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        #home .contact-info {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+         #home .contact-info p {
+             margin-bottom: 5px;
+         }
+
+
+        /* --- About Section --- */
+        #about p {
+            font-size: 1.1rem;
+        }
+        
+        /* --- Research Interests --- */
+        #interests ul {
+            list-style-type: '» ';
+            padding-left: 20px;
+        }
+        
+        #interests li {
+            font-size: 1.1rem;
+            padding-left: 10px;
+        }
+        
+        /* --- Experience Timeline --- */
+        #experience .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        #experience .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 50px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            border: 2px solid white;
+            z-index: 1;
+        }
+        
+        .timeline-date {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        
+        .timeline-location {
+            font-size: 1rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        /* --- Projects --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .project-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-card h3 {
+            margin-bottom: 10px;
+        }
+        
+        .project-card .project-highlight {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* --- Publications --- */
+        .publication-list li {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .paper-links {
+            margin-top: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--primary-color);
+        }
+        
+        .btn-disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-disabled:hover {
+             background: #ccc;
+        }
+        
+        .btn-code {
+            background: #28a745; /* Green */
+        }
+        
+        .btn-code:hover {
+            background: #218838;
+        }
+
+        /* --- Skills --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .skill-category li {
+            background: var(--light-gray);
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin-bottom: 8px;
+        }
+        
+        .skill-category strong {
+            color: var(--primary-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--dark-gray);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="#home" class="logo">Jehyun Lee</a>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#skills">Skills</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div class="container">
+            <h1>Jehyun Lee</h1>
+            <p class="subtitle">Senior Security Researcher | AI/ML for Cybersecurity</p>
+            <div class="contact-info">
+                <p><strong>Email:</strong> jehyunleekr@gmail.com</p>
+                <p><strong>Mobile:</strong> +65-9085-1282</p>
+                <p><strong>Citizenship:</strong> Republic of Korea</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>I am looking for a researcher/scientist position in AI/ML. I am currently working for LevelBlue/Trustwave, a world-leading Managed Security Service Provider, as a senior security researcher.</p>
+            <p>For the last five years in the industrial position, I have spearheaded the AI/ML research team, responsible for developing incident detection, data analysis, and automation systems for EDR/SIEM using machine learning (ML), deep learning (DL), and natural language processing (NLP) techniques.</p>
+            <p>My research experiences continue in academia and industry. I have worked in research teams at SMU and NUS in Singapore, as well as at KAIST and Korea University in Korea, in senior and leading positions. After entering the industry, I continued my research and published papers on emerging security topics in AI for security.</p>
+        </div>
+    </section>
+    
+    <section id="education">
+         <div class="container">
+            <h2>Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-date">2015</span>
+                    <h3 class="timeline-title">Ph.D. Computer Science and Engineering</h3>
+                    <p class="timeline-location">Korea University (GPA: 4.05/4.5)</p>
+                    <p><strong>Dissertation:</strong> GMAD:Graph-based Malware Activity Detection by DNS Traffic Analysis</p>
+                </div>
+                 <div class="timeline-item">
+                    <span class="timeline-date">2009</span>
+                    <h3 class="timeline-title">M.S. Computer Science and Engineering</h3>
+                    <p class="timeline-location">Korea University (GPA: 4.15/4.5)</p>
+                </div>
+                 <div class="timeline-item">
+                    <span class="timeline-date">2007</span>
+                    <h3 class="timeline-title">B.S. Computer Science and Engineering</h3>
+                    <p class="timeline-location">Korea University (GPA: 3.75/4.5)</p>
+                </div>
+            </div>
+         </div>
+    </section>
+
+    <section id="interests">
+        <div class="container">
+            <h2>Research Interests</h2>
+            <ul>
+                <li>AI/ML for Security and Incident response automation</li>
+                <li>Adversarial sample/Prompt injection to AI/ML models</li>
+                <li>Malicious behavior and anomaly detection in the enterprise network</li>
+                <li>Malware detection and behavior analysis</li>
+                <li>Other topics on enterprise/network and AI security</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2>Experience</h2>
+            <div class="timeline">
+                
+                <h3>Industrial Experience</h3>
+                <div class="timeline-item">
+                    <span class="timeline-date">Aug. 2022 - Present</span>
+                    <h3 class="timeline-title">Senior Security Researcher</h3>
+                    <p class="timeline-location">Trustwave, Singapore</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">Jun. 2020 - Jul. 2022</span>
+                    <h3 class="timeline-title">Assistant R&D Manager</h3>
+                    <p class="timeline-location">NUS-Singtel Cyber Security R&D Lab., Trustwave, Singapore</p>
+                </div>
+                 <div class="timeline-item">
+                    <span class="timeline-date">Jan. 2016 - Feb. 2016</span>
+                    <h3 class="timeline-title">Intern</h3>
+                    <p class="timeline-location">Saisei Networks, CA, US</p>
+                </div>
+                <h3 style="margin-top: 40px;">Academic Experience</h3>
+                <div class="timeline-item">
+                    <span class="timeline-date">Sep. 2018 - Jun. 2020</span>
+                    <h3 class="timeline-title">Postdoctoral research fellow</h3>
+                    <p class="timeline-location">NUS-Singtel Cyber Security R&D Lab., National University of Singapore, Singapore</p>
+                </div>
+                 <div class="timeline-item">
+                    <span class="timeline-date">Jan. 2017 - Sep. 2018</span>
+                    <h3 class="timeline-title">Postdoctoral research fellow</h3>
+                    <p class="timeline-location">Secure Mobile Centre, Singapore Management University, Singapore</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">Apr. 2016 - Dec. 2016</span>
+                    <h3 class="timeline-title">Senior Researcher</h3>
+                    <p class="timeline-location">Cyber Security Research Center, Korea Advanced Institute of Science and Technology (KAIST), Korea</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">Mar. 2016 - Jun. 2016</span>
+                    <h3 class="timeline-title">Lecturer</h3>
+                    <p class="timeline-location">Dept. of Computer and Information security, Sejong University, Korea</p>
+                </div>
+                 <div class="timeline-item">
+                    <span class="timeline-date">Sep. 2015 - Mar. 2016</span>
+                    <h3 class="timeline-title">Research Professor</h3>
+                    <p class="timeline-location">Center for Computer Security and Assurance, Korea University, Korea</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>Recent Industrial Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>D-FENCE</h3>
+                    <p>Comprehensive phishing email detection system with an ensemble of ML, DL, and NLP modules.</p>
+                    <p class="project-highlight">40% more detections from missed detections in the previous solution.</p>
+                </div>
+                <div class="project-card">
+                    <h3>CorrelateML</h3>
+                    <p>Multi-source SIEM event correlation system with event categorization (NLP-ML) and attack chain tailoring (LLM).</p>
+                </div>
+                <div class="project-card">
+                    <h3>ValueML</h3>
+                    <p>False positive and non-threatening SIEM alert modeling and detection system.</p>
+                    <p class="project-highlight">Reinforced learning from experts' feedback in natural language.</p>
+                </div>
+                <div class="project-card">
+                    <h3>PageML and URLDeep</h3>
+                    <p>A hybrid phishing webpage detection system with ML/DL components, URL intelligence, and rules framework.</p>
+                    <p class="project-highlight">Best unique phishing webpage detections in VirusTotal.</p>
+                </div>
+                <div class="project-card">
+                    <h3>MalPage</h3>
+                    <p>A DL-based malicious webpage detection system (HTML, text, JavaScript) with language-specific embedding models.</p>
+                    <p class="project-highlight">Generic detection against exploit kits, phishing, and obfuscated JavaScript.</p>
+                </div>
+                 <div class="project-card">
+                    <h3>SIEM Event Clustering</h3>
+                    <p>Event log parsing, clustering, and effective filtering condition extraction tool.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="publications">
+        <div class="container">
+            <h2>Research Publications</h2>
+            
+            <h3>Conference Papers</h3>
+            <ul class="publication-list">
+                <li>
+                    Jehyun Lee, Peiyuan Lim, Bryan Hooi, and Dinil Mon Divakaran, "Multimodal large language models for phishing webpage detection and identification", APWG Symposium on Electronic Crime Research (eCrime), Sep. 2024.
+                    <div class="paper-links">
+                        <a href="https://www.dinil.net/publications" class="btn" target="_blank" rel="noopener noreferrer">Paper Link</a>
+                        <a href="https://github.com/jehleekr/multimodal_llm_phishing_detection" class="btn btn-code" target="_blank" rel="noopener noreferrer">Code</a>
+                    </div>
+                </li>
+                <li>
+                    Jehyun Lee, Zhe Xin, Melanie Ng Pei See, Kanav Sabharwal, Giovanni Apruzzese, and Dinil Mon Divakaran, "Attacking logo-based phishing website detectors with adversarial perturbations", European Symposium on Research in Computer Security (ESORICS), Jul. 2023.
+                     <div class="paper-links">
+                        <a href="https://arxiv.org/abs/2308.09392" class="btn" target="_blank" rel="noopener noreferrer">Paper (arXiv)</a>
+                        <a href="https://www.dinil.net/publications" class="btn" target="_blank" rel="noopener noreferrer">Resource</a>
+                    </div>
+                </li>
+                <li>
+                    Jehyun Lee, Farren Tang, Phyo May Thet, Desmond Yeoh, Mitch Rybczynski, and Dinil Mon Divakaran, "Sierra: Ranking anomalous activities in enterprise networks", IEEE European Symposium on Security and Privacy (Euro S&P), Jul. 2022.
+                     <div class="paper-links">
+                        <a href="https://arxiv.org/abs/2203.16802" class="btn" target="_blank" rel="noopener noreferrer">Paper (arXiv)</a>
+                    </div>
+                </li>
+                <li>
+                    Jehyun Lee, Min Suk Kang, Dinil Mon Divakaran, Phyo May Thet, Videet Singhai and Jun Seung You, "A Step Towards On-Path Security Function Outsourcing", International Conference on Distributed Computing and Networking (ICDCN), Jan. 2022.
+                     <div class="paper-links">
+                        <a href="#" class="btn btn-disabled">Paper</a>
+                    </div>
+                </li>
+                 <li>
+                    Jehyun Lee, Farren Tang, Pingxiao Ye, Fahim Abbasi, Phil Hay, and Dinil Mon Divakaran, "D-Fence: A Flexible, Efficient, and Comprehensive Phishing Email Detection System", IEEE European Symposium on Security and Privacy (Euro S&P), Sep. 2021.
+                     <div class="paper-links">
+                        <a href="#" class="btn btn-disabled">Paper</a>
+                    </div>
+                </li>
+                 <li>
+                    Jehyun Lee, Pingxiao Ye, Ruofan Liu, Dinil Mon Divakaran, and Mun Chun Chan, "Building Robust Phishing Detection System: an Empirical Analysis", NDSS Workshop on Measurements, Attacks, and Defenses for the Web (MADWeb), Feb. 2020.
+                     <div class="paper-links">
+                        <a href="#" class="btn btn-disabled">Paper</a>
+                    </div>
+                </li>
+                </ul>
+            
+            <h3>Journal Papers</h3>
+            <ul class="publication-list">
+                <li>
+                    Minsu Lee, Jehyun Lee, Hobin Kim, and Chanho Ryu, "Instrumentation Performance Measurement Technique for Evaluating Efficiency of Binary Analysis Tools", Journal of the Korea Institute of Information Security and Cryptology, vol. 27, no. 6 pp. 1331-1345, 2017.
+                    <div class="paper-links">
+                        <a href="#" class="btn btn-disabled">Paper</a>
+                    </div>
+                </li>
+                <li>
+                    Choongin Lee, Jehyun Lee, Youngbin Pyo, and Heejo Lee, "Broken Integrity Detection of Video Files in Video Event Data Recorders", KSII Transactions on Internet and Information Systems, vol. 10, no. 8, pp. 3943-3957, 2016.
+                    <div class="paper-links">
+                        <a href="#" class="btn btn-disabled">Paper</a>
+                    </div>
+                </li>
+                 <li>
+                    Jonghoon Kwon, Jehyun Lee, Heejo Lee, and Adrian Perrig, "PsyBoG: A scalable botnet detection method for large-scale DNS traffic", Computer Networks, Elsevier, 2016.
+                    <div class="paper-links">
+                        <a href="#" class="btn btn-disabled">Paper</a>
+                    </div>
+                </li>
+                </ul>
+
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Computer Skills</h3>
+                    <ul>
+                        <li><strong>Operating System:</strong> Windows and Ubuntu Linux.</li>
+                        <li><strong>Programming Language:</strong> Python, C, C++, C#, Java.</li>
+                        <li><strong>Tools & Environments:</strong> Machine learning and Deep Learning (Tensorflow, PyTorch, Weka), LLMs, Cloud environment (AWS), Version control systems (SVN, GIT, BitBucket, Mecurial), Virtual machines (ESXi, VMware).</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Language Skills</h3>
+                     <ul>
+                        <li><strong>English:</strong> Fluent</li>
+                        <li><strong>Japanese:</strong> Fluent</li>
+                        <li><strong>Korean:</strong> Native</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="patents">
+        <div class="container">
+            <h2>Patents</h2>
+            <ul>
+                <li>Heejo Lee, Jonghoon Kwon, Jeongsik Kim, Jehyun Lee, "Method, Device and Computer Readable Recording Medium for Detecting Botnet through DNS Traffics", Domestic, Registration, 10-1665369, Oct. 6. 2016.</li>
+                <li>Heejo Lee, Jehyun Lee, Suyeon Lee, "Device and Method for Detecting Malware", Domestic, Registration, 10-1508577, Mar. 30. 2015.</li>
+                <li>Heejo Lee, Jonghoon Kwon, Jusuk Lee, Jehyun Lee, Taebum Kim, Hyun-Cheol Jeong, Chaetae Im, Seung-Goo Ji, Joohyung Oh, Dongwan Kang, "System and Method for Detecting Malicious Code", Domestic, Registration, 10-1230271, Jan. 31. 2013.</li>
+                <li>Heejo Lee, Jehyun Lee, Jonghoon Kwon, "Method and System for Detecting Botnets using Domain Name Service Queries", Domestic, Registration, 10-1182793, Sep. 7. 2012.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jehyun Lee. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
